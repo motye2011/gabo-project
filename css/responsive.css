@@ -1,25 +1,25 @@
 /* ============================================================
-   LA VIDA DE GABO — CSS moderno
-   Paleta inspirada en Macondo: noche tropical, papel viejo
-   y las mariposas amarillas de Mauricio Babilonia.
+   VALORANT — CSS moderno
+   Paleta Valorant: rojo #ff4655, oscuro #0f1923, cream #ece8e1
+   Inspiración táctica: Spike, agentes y VCT.
    ============================================================ */
 
 /* ---------- 1. Variables de diseño (custom properties) ---------- */
 :root {
-  /* Color */
-  --noche:     #16302b;   /* verde-noche tropical (hero, footer) */
-  --noche-2:   #0f221e;
-  --papel:     #f8f3e6;   /* papel envejecido (fondo general) */
-  --papel-2:   #efe6d0;   /* papel más oscuro (secciones alternas) */
-  --tinta:     #26241c;   /* texto principal */
-  --mariposa:  #f2c14e;   /* amarillo mariposa (acento principal) */
-  --caribe:    #2e7f74;   /* verde-azul Caribe (enlaces, detalles) */
-  --guacamaya: #c8502e;   /* rojo cálido (hover, énfasis puntual) */
+  /* Color — VALORANT */
+  --noche:     #0f1923;   /* Valorant dark — hero, footer, nav */
+  --noche-2:   #020a14;
+  --papel:     #ece8e1;   /* cream Valorant — fondo general */
+  --papel-2:   #d8d2c8;   /* cream oscuro — secciones alternas */
+  --tinta:     #0f1923;   /* texto principal oscuro */
+  --mariposa:  #ff4655;   /* rojo Valorant — acento principal */
+  --caribe:    #00d9c0;   /* teal agente — enlaces secundarios */
+  --guacamaya: #ff4655;   /* rojo hover */
 
-  /* Tipografía */
-  --f-display: "Fraunces", Georgia, serif;
-  --f-body:    "Source Serif 4", Georgia, serif;
-  --f-ui:      "Archivo", "Helvetica Neue", sans-serif;
+  /* Tipografía — Valorant: display fuerte tipo Anton/Oswald */
+  --f-display: "Anton", "Oswald", "Fraunces", sans-serif;
+  --f-body:    "Inter", "Source Serif 4", system-ui, sans-serif;
+  --f-ui:      "Oswald", "Archivo", "Helvetica Neue", sans-serif;
 
   /* Escala tipográfica fluida — Mobile First (guía: clamp 1.5rem → 3rem) */
   --fs-hero:  clamp(2.4rem, 8vw + 1rem, 6.5rem);
@@ -138,8 +138,9 @@ a:hover { color: var(--guacamaya); }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--noche) 92%, transparent);
+  background: color-mix(in srgb, var(--noche) 96%, transparent);
   backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--mariposa);
 }
 
 .nav {
@@ -152,7 +153,9 @@ a:hover { color: var(--guacamaya); }
 .nav-brand {
   font-family: var(--f-display);
   font-weight: 900;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--papel);
 }
 .nav-brand:hover { color: var(--mariposa); }
@@ -212,10 +215,11 @@ a:hover { color: var(--guacamaya); }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(1200px 600px at 80% -10%, #24504a 0%, transparent 60%),
-    var(--noche);
+    radial-gradient(900px 500px at 85% 0%, rgba(255,70,85,0.22) 0%, transparent 60%),
+    linear-gradient(180deg, #0f1923 0%, #0a131e 100%);
   color: var(--papel);
   padding-block: clamp(5rem, 12vw, 9rem) clamp(3rem, 7vw, 5rem);
+  border-bottom: 4px solid var(--mariposa);
 }
 
 #butterflies {
@@ -252,27 +256,32 @@ a:hover { color: var(--guacamaya); }
 
 .btn {
   font-family: var(--f-ui);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   padding: 0.85rem 1.6rem;
-  border-radius: 999px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   display: inline-block;
   transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
 }
-.btn:hover { transform: translateY(-3px); }
+.btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
   background: var(--mariposa);
-  color: var(--noche);
-  box-shadow: 0 6px 20px rgba(242, 193, 78, 0.35);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 70, 85, 0.4);
+  border: 1px solid #ff4655;
 }
-.btn-primary:hover { background: #ffd76b; color: var(--noche); }
+.btn-primary:hover { background: #e63c4a; color: #fff; }
 
 .btn-ghost {
-  border: 2px solid color-mix(in srgb, var(--papel) 40%, transparent);
+  border: 2px solid color-mix(in srgb, var(--papel) 50%, transparent);
   color: var(--papel);
+  background: transparent;
 }
-.btn-ghost:hover { border-color: var(--mariposa); color: var(--mariposa); }
+.btn-ghost:hover { border-color: var(--mariposa); color: var(--mariposa); background: rgba(255,70,85,0.08); }
 
 /* Estadísticas del hero */
 .hero-stats {
