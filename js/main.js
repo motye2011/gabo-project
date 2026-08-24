@@ -132,28 +132,34 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
   }, { passive: true });
 })();
 
-/* ---------- 6. Pantalla de carga Valorant ---------- */
+/* ---------- 6. Pantalla de carga Valorant (FIX overlay) ---------- */
 (function loader() {
   const loaderEl = document.getElementById("valorant-loader");
   const progress = document.getElementById("loaderProgress");
-  if (!loaderEl || !progress) return;
-  if (reducedMotion) { loaderEl.classList.add("hidden"); loaderEl.setAttribute("aria-hidden","true"); return; }
+  if (!loaderEl) return;
+  function hideLoader(){
+    loaderEl.classList.add("hidden");
+    loaderEl.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+    // quitar del flujo tras transición
+    setTimeout(()=>{ loaderEl.style.display="none"; }, 800);
+    try{ sessionStorage.setItem("valorantLoaderDone","1"); }catch(e){}
+    document.querySelectorAll(".hero .reveal").forEach(el=>el.classList.add("in-view"));
+  }
+  if (reducedMotion) { hideLoader(); if(progress) progress.style.width="100%"; return; }
 
-  let pct = 0;
-  const interval = setInterval(() => {
-    pct += Math.random() * 22 + 8;
-    if (pct >= 100) { pct = 100; clearInterval(interval); progress.style.width = "100%";
-      setTimeout(() => {
-        loaderEl.classList.add("hidden");
-        loaderEl.setAttribute("aria-hidden","true");
-        document.body.style.overflow = "";
-        // disparo de reveal tras carga
-        document.querySelectorAll(".hero .reveal").forEach(el=>el.classList.add("in-view"));
-      }, 380);
-    } else { progress.style.width = pct + "%"; }
-  }, 180);
-  // bloqueo scroll mientras carga
   document.body.style.overflow = "hidden";
-  // fallback por si no dispara interval
-  window.addEventListener("load", () => setTimeout(()=>{ if(!loaderEl.classList.contains("hidden")){ progress.style.width="100%"; setTimeout(()=>loaderEl.classList.add("hidden"),300);} }, 700));
+  let pct = 0;
+  if (progress) {
+    const interval = setInterval(() => {
+      pct += Math.random() * 22 + 8;
+      if (pct >= 100) { pct = 100; clearInterval(interval); progress.style.width = "100%"; setTimeout(hideLoader, 380); }
+      else { progress.style.width = pct + "%"; }
+    }, 180);
+  }
+  // cierre garantizado — aunque falle interval o el usuario vea la barra arriba
+  setTimeout(hideLoader, 2200);
+  window.addEventListener("load", () => setTimeout(()=>{ if(!loaderEl.classList.contains("hidden")){ if(progress) progress.style.width="100%"; setTimeout(hideLoader,300);} }, 700));
+  // click para saltar intro
+  loaderEl.addEventListener("click", hideLoader);
 })();
