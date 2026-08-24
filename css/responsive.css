@@ -627,11 +627,13 @@ a:hover { color: var(--guacamaya); }
   position: relative;
 }
 .centro-links li::before {
-  content: "🦋";
+  content: "◆";
   position: absolute;
   left: 0;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   top: 0.2rem;
+  color: var(--mariposa);
+  font-weight: 900;
 }
 
 /* ---------- 17. Juego: Memoria de Macondo ---------- */
