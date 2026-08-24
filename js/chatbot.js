@@ -1,9 +1,7 @@
 /* ============================================================
-   CHATBOT "PREGÚNTALE A GABO"
-   Bot basado en reglas (sin servidor): detecta palabras clave
-   y responde sobre la vida, las obras, el video del Nobel
-   y el Centro Gabo. Incluye chips de sugerencias y efecto
-   de "escribiendo…".
+   CHATBOT "PREGÚNTALE A VALORANT"
+   Bot basado en reglas — responde sobre agentes, mapas, Spike
+   Radianita, VCT y parallax responsive. Efecto escribiendo.
    ============================================================ */
 
 (function chatbot() {
@@ -16,240 +14,112 @@
   const input = document.getElementById("chatInput");
   if (!fab || !win) return;
 
-  /* ---------- Base de conocimiento ---------- */
-  /* Cada regla: palabras clave (en minúscula, sin tildes) + respuesta.
-     Se evalúan en orden; gana la primera que coincida. */
   const KB = [
     {
-      keys: ["cien anos", "100 anos", "soledad", "buendia", "macondo"],
-      reply:
-        "📖 <strong>Cien años de soledad</strong> (1967) es su obra cumbre: la saga de siete generaciones " +
-        "de la familia Buendía en Macondo, pueblo inspirado en Aracataca. Se ha traducido a más de 40 idiomas " +
-        "y vendió decenas de millones de ejemplares. Es la novela central del realismo mágico. " +
-        'Más info en la sección <a href="#obras">Obras</a>.'
+      keys: ["jett"],
+      reply: '💨 <strong>Jett</strong> (Duelista): Dash, Updraft, Smoked y cuchillos. Entra primera, corta ángulos y escapa. <a href="#obras">Ver Agentes</a>.'
     },
     {
-      keys: ["coronel"],
-      reply:
-        "📖 <strong>El coronel no tiene quien le escriba</strong> (1961): un viejo coronel espera cada viernes, " +
-        "con dignidad y hambre, la carta con la pensión de guerra que nunca llega. Gabo la escribió en París " +
-        "mientras pasaba sus propias penurias económicas."
+      keys: ["phoenix"],
+      reply: '🔥 <strong>Phoenix</strong> (Duelista): destellos, muro de fuego, curación y ultimate que le devuelve a la vida si cae.'
     },
     {
-      keys: ["cronica", "muerte anunciada", "santiago nasar"],
-      reply:
-        "📖 <strong>Crónica de una muerte anunciada</strong> (1981): con pulso de reportero, Gabo reconstruye " +
-        "el asesinato de Santiago Nasar, un crimen que todo el pueblo vio venir y nadie evitó. " +
-        "Es el mejor ejemplo de su fusión entre periodismo y literatura."
+      keys: ["sage"],
+      reply: '❄️ <strong>Sage</strong> (Centinela): muro, ralentización, cura y <strong>Resurrección</strong>. Clave para retomar y sostener post-plant.'
     },
     {
-      keys: ["colera", "amor en los tiempos", "florentino", "fermina"],
-      reply:
-        "📖 <strong>El amor en los tiempos del cólera</strong> (1985): Florentino Ariza espera más de medio " +
-        "siglo por el amor de Fermina Daza. Inspirada en parte en el noviazgo de los padres de Gabo, " +
-        "está ambientada en una ciudad caribeña que evoca a Cartagena."
+      keys: ["sova"],
+      reply: '🏹 <strong>Sova</strong> (Iniciador): dardo revelador, dron y ultimate que atraviesa paredes. Info = ronda ganada.'
     },
     {
-      keys: ["putas tristes", "memoria de mis"],
-      reply:
-        "📖 <strong>Memoria de mis putas tristes</strong> (2004) fue su última novela publicada en vida: " +
-        "una meditación sobre la vejez y el amor tardío."
+      keys: ["reyna"],
+      reply: '👁️ <strong>Reyna</strong> (Duelista): se alimenta de frags — ceguera, curación y invulnerabilidad. Mecánica pura.'
     },
     {
-      keys: ["vivir para contarla", "memorias", "autobiografia"],
-      reply:
-        "📖 <strong>Vivir para contarla</strong> (2002) son sus memorias: la infancia en Aracataca, " +
-        "los años de periodismo y el nacimiento del escritor. De ahí viene su frase: " +
-        "«La vida no es la que uno vivió, sino la que uno recuerda»."
+      keys: ["killjoy"],
+      reply: '🤖 <strong>Killjoy</strong> (Centinela): torreta, alarmbot, granada y bloqueo. Castiga el rush con nanoenjambre.'
     },
     {
-      keys: ["obras", "libros", "novelas", "escribio", "bibliografia", "principales"],
-      reply:
-        "📚 Sus obras principales son:<br>" +
-        "• <strong>La hojarasca</strong> (1955)<br>" +
-        "• <strong>El coronel no tiene quien le escriba</strong> (1961)<br>" +
-        "• <strong>Cien años de soledad</strong> (1967)<br>" +
-        "• <strong>El otoño del patriarca</strong> (1975)<br>" +
-        "• <strong>Crónica de una muerte anunciada</strong> (1981)<br>" +
-        "• <strong>El amor en los tiempos del cólera</strong> (1985)<br>" +
-        "• <strong>Noticia de un secuestro</strong> (1996)<br>" +
-        "• <strong>Vivir para contarla</strong> (2002)<br>" +
-        "• <strong>Memoria de mis putas tristes</strong> (2004)<br>" +
-        "Pregúntame por cualquiera de ellas 🦋"
+      keys: ["viper", "omen", "brimstone", "cypher", "raze", "breach", "astra", "yoru", "neon", "chamber", "fade", "harbor", "gekko", "deadlock", "iso", "clove"],
+      reply: '🃏 Ese agente también está en el Protocolo. Pregúntame por <strong>Jett, Phoenix, Sage, Sova, Reyna o Killjoy</strong> — están en <a href="#obras">Agentes</a> y en el <a href="#juego">juego de memoria</a>.'
     },
     {
-      keys: ["quien fue", "vida", "biografia", "nacio", "murio", "quien es gabo", "quien era"],
+      keys: ["agentes", "personajes", "duelista", "centinela", "iniciador", "controlador", "rol"],
       reply:
-        "👤 <strong>Gabriel García Márquez</strong> (Aracataca, 6 de marzo de 1927 — Ciudad de México, " +
-        "17 de abril de 2014) fue periodista y novelista colombiano, padre del realismo mágico y " +
-        "Premio Nobel de Literatura 1982. Creció con sus abuelos, cuyas historias inspiraron Macondo. " +
-        'Puedes leer más en la sección <a href="#biografia">Biografía</a> o en la ' +
-        '<a href="https://centrogabo.org/gabo/contemos-gabo/quien-fue-gabriel-garcia-marquez" target="_blank" rel="noopener">biografía del Centro Gabo</a>.'
+        '🧩 <strong>Roles</strong>: <br>' +
+        '• <strong>Duelista</strong> (Jett, Phoenix, Reyna, Raze, Yoru, Neon, Iso)<br>' +
+        '• <strong>Iniciador</strong> (Sova, Breach, Skye, KAY/O, Fade, Gekko)<br>' +
+        '• <strong>Controlador</strong> (Brimstone, Viper, Omen, Astra, Harbor)<br>' +
+        '• <strong>Centinela</strong> (Sage, Cypher, Killjoy, Chamber, Deadlock)<br>' +
+        'Todos en <a href="#obras">Agentes</a>.'
     },
     {
-      keys: ["nobel", "premio", "estocolmo", "1982"],
-      reply:
-        "🏅 Gabo recibió el <strong>Premio Nobel de Literatura en 1982</strong> por unir fantasía y realismo " +
-        "en un mundo que refleja la vida y los conflictos de América Latina. En Estocolmo pronunció el " +
-        "célebre discurso <em>«La soledad de América Latina»</em>."
+      keys: ["mapas", "bind", "haven", "ascent", "split", "icebox", "breeze", "fracture", "pearl", "lotus", "sunset", "abyss", "corrode"],
+      reply: '🗺️ <strong>Mapas</strong>: Bind, Haven, Ascent, Sunset, Lotus, Pearl, Fracture, Icebox, Breeze, Abyss. Cada uno exige lineups, control de mid y post-plant.'
     },
     {
-      keys: ["video", "discurso", "ver", "youtube"],
-      reply:
-        '🎬 En la sección <a href="#video">Discurso Nobel</a> de esta página puedes ver el video completo ' +
-        "de «La soledad de América Latina» (Estocolmo, 1982), uno de los discursos más recordados " +
-        "en la historia del premio."
+      keys: ["spike", "planta", "desactivar", "plantar"],
+      reply: '💣 <strong>Spike</strong>: 5v5 a 13 rondas. Atacantes plantan en site, defensores desactivan (3.5s, mitad 1.75s). Gestiona economía y definitivas.'
     },
     {
-      keys: ["realismo magico", "realismo"],
-      reply:
-        "✨ El <strong>realismo mágico</strong> es un estilo donde lo fantástico se narra con la naturalidad " +
-        "de lo cotidiano: lluvias de flores, ascensiones al cielo y mariposas amarillas conviven con la " +
-        "historia real de América Latina. Gabo es su máximo exponente."
+      keys: ["radianita", "radiante", "omega", "alpha", "historia", "lore", "protocolo"],
+      reply: '🌌 Tras el <strong>Primer Luz</strong> la Radianita dividió el mundo en <strong>Alpha y Omega</strong>. El Protocolo VALORANT recluta radiantes para evitar el robo de Radianita interdimensional.'
     },
     {
-      keys: ["mariposa", "mauricio"],
-      reply:
-        "🦋 Las <strong>mariposas amarillas</strong> siguen a Mauricio Babilonia en «Cien años de soledad» " +
-        "y se volvieron el símbolo universal de Gabo. Por eso vuelan en el inicio de esta página."
+      keys: ["vct", "champions", "masters", "esports", "riot"],
+      reply: '🏆 <strong>VCT</strong>: ligas Américas/EMEA/Pacífico → Masters → Champions. El top mundial. Info en <a href="#centro-gabo">VCT</a> y en <a href="https://valorantesports.com" target="_blank" rel="noopener">valorantesports.com</a>.'
     },
     {
-      keys: ["centro gabo", "fundacion", "cartagena"],
-      reply:
-        "🏛️ El <strong>Centro Gabo</strong> es una iniciativa de la Fundación Gabo en Cartagena de Indias " +
-        "para descubrir, conservar y vivir su legado: biografía, cronología, entrevistas (Gabo Habla), " +
-        "memoria colectiva y especiales multimedia. " +
-        'Visítalo en <a href="https://centrogabo.org/" target="_blank" rel="noopener">centrogabo.org</a> ' +
-        'o mira la sección <a href="#centro-gabo">Centro Gabo</a> de esta página.'
+      keys: ["rango", "hierro", "bronce", "plata", "oro", "platino", "diamante", "ascendente", "inmortal"],
+      reply: '📈 <strong>Rangos</strong>: Hierro → Bronce → Plata → Oro → Platino → Diamante → Ascendente → Inmortal → Radiante. ¿En cuál estás?'
     },
     {
-      keys: ["cursos", "formacion", "aprender", "taller", "virtual", "mochila", "septimus", "cronicando", "punto y aparte"],
-      reply:
-        "🎓 La <strong>formación virtual del Centro Gabo</strong> ofrece cursos gratuitos:<br>" +
-        "• <strong>La mochila de Gabo</strong> — educación mediática y uso crítico de la IA<br>" +
-        "• <strong>Cronicando con Gabo</strong> — periodismo escolar<br>" +
-        "• <strong>Punto y aparte</strong> — investigación y contenidos multiformato<br>" +
-        "• <strong>Septimus</strong> — análisis de textos y datos<br>" +
-        'Todos con acceso libre en <a href="https://centrogabo.org/formacion-virtual/" target="_blank" rel="noopener">formación virtual</a>.'
+      keys: ["juego", "memoria", "cartas", "protocolo"],
+      reply: '🎮 ¡A jugar! Ve a <a href="#juego">Memoria del Protocolo</a>: empareja la <strong>foto</strong> del agente con su <strong>nombre</strong> en el menor número de movimientos.'
     },
     {
-      keys: ["juego", "jugar", "memoria de macondo"],
-      reply:
-        '🎮 ¡Claro! Sube a la sección <a href="#juego">Memoria de Macondo</a> y encuentra las parejas ' +
-        "de obras y años. A ver en cuántos movimientos lo logras 😉"
+      keys: ["video", "trailer", "cinematica", "duelo"],
+      reply: '🎬 Mira la cinemática <a href="#video">DUELO</a> en esta página — Jett vs Phoenix y la Spike.'
     },
     {
-      keys: ["periodismo", "periodista", "espectador", "heraldo"],
-      reply:
-        "📰 Antes que novelista, Gabo fue <strong>periodista</strong>: escribió en El Universal, El Heraldo " +
-        "y El Espectador. Siempre dijo que el periodismo era «el mejor oficio del mundo», y en 1994 fundó " +
-        "en Cartagena la Fundación para un Nuevo Periodismo Iberoamericano, hoy Fundación Gabo."
+      keys: ["hola", "buenas", "hey", "hi", "wenas"],
+      reply: '¡Hey, agente! ◆ Soy el bot de Valorant. Pregúntame por <strong>agentes</strong>, <strong>mapas</strong>, <strong>Spike</strong>, <strong>radianita</strong> o <strong>VCT</strong>.'
     },
-    {
-      keys: ["hola", "buenas", "hey", "saludos", "hi"],
-      reply:
-        "¡Hola! 🦋 Soy el bot de este sitio. Puedo contarte sobre la <strong>vida</strong> de Gabo, " +
-        "sus <strong>obras principales</strong>, el <strong>video del Nobel</strong> y el " +
-        "<strong>Centro Gabo</strong> con sus cursos gratuitos. ¿Qué quieres saber?"
-    },
-    {
-      keys: ["gracias", "genial", "perfecto"],
-      reply: "¡Con gusto! 🌼 Si quieres saber algo más de Gabo, aquí estoy."
-    }
+    { keys: ["gracias", "ty", "gg"], reply: '¡GG WP! ◆ ¿Otra ronda? Pregúntame por un agente.' }
   ];
 
   const FALLBACK =
-    "Mmm, esa no la tengo en mi Macondo 🤔. Prueba preguntarme por: " +
-    "<em>obras principales</em>, <em>Cien años de soledad</em>, <em>su vida</em>, " +
-    "<em>el Premio Nobel</em>, <em>el video del discurso</em> o <em>los cursos del Centro Gabo</em>.";
+    'No tengo ese callout 🤔. Prueba con: <em>agentes</em>, <em>Jett</em>, <em>mapas</em>, <em>Spike</em>, <em>VCT</em> o <em>historia</em>.';
 
-  const CHIPS = [
-    "¿Quién fue Gabo?",
-    "Obras principales",
-    "Cien años de soledad",
-    "Premio Nobel",
-    "Video del discurso",
-    "Cursos del Centro Gabo"
-  ];
+  const CHIPS = ["Agentes", "Jett", "Spike", "Mapas", "VCT", "Historia Radianita"];
 
-  /* ---------- Utilidades ---------- */
-  // Quita tildes y pasa a minúsculas para comparar sin errores
-  const normalize = (s) =>
-    s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const normalize = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   function answerFor(text) {
     const q = normalize(text);
-    for (const rule of KB) {
-      if (rule.keys.some((k) => q.includes(k))) return rule.reply;
-    }
+    for (const rule of KB) if (rule.keys.some((k) => q.includes(k))) return rule.reply;
     return FALLBACK;
   }
-
   function addMessage(html, who) {
     const div = document.createElement("div");
-    div.className = "chat-msg " + who; // "bot" o "user"
+    div.className = "chat-msg " + who;
     div.innerHTML = html;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
   }
-
   function botReply(text) {
-    // Burbuja "escribiendo…" y respuesta con retraso natural
     const typing = addMessage('<span class="typing"><i></i><i></i><i></i></span>', "bot");
-    setTimeout(() => {
-      typing.innerHTML = answerFor(text);
-      messages.scrollTop = messages.scrollHeight;
-    }, 550 + Math.random() * 450);
+    setTimeout(() => { typing.innerHTML = answerFor(text); messages.scrollTop = messages.scrollHeight; }, 550 + Math.random()*450);
   }
+  function send(text){ if(!text.trim()) return; addMessage(text.replace(/</g,"&lt;"), "user"); botReply(text); }
 
-  function send(text) {
-    if (!text.trim()) return;
-    addMessage(text.replace(/</g, "&lt;"), "user");
-    botReply(text);
-  }
+  CHIPS.forEach((label)=>{ const b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=label; b.addEventListener("click",()=>send(label)); chipsBox.appendChild(b); });
 
-  /* ---------- Chips de sugerencias ---------- */
-  CHIPS.forEach((label) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip";
-    b.textContent = label;
-    b.addEventListener("click", () => send(label));
-    chipsBox.appendChild(b);
-  });
-
-  /* ---------- Abrir / cerrar ---------- */
-  let greeted = false;
-  function openChat() {
-    win.hidden = false;
-    fab.setAttribute("aria-expanded", "true");
-    requestAnimationFrame(() => win.classList.add("open"));
-    if (!greeted) {
-      greeted = true;
-      setTimeout(() => {
-        addMessage(
-          "¡Hola! 🦋 Pregúntame por la <strong>vida</strong> de Gabo, sus <strong>obras</strong>, " +
-          "el <strong>video del Nobel</strong> o el <strong>Centro Gabo</strong>. " +
-          "También puedes tocar una sugerencia aquí abajo.",
-          "bot"
-        );
-      }, 350);
-    }
-    input.focus();
-  }
-  function closeChat() {
-    win.classList.remove("open");
-    fab.setAttribute("aria-expanded", "false");
-    setTimeout(() => { win.hidden = true; }, 300);
-  }
-
-  fab.addEventListener("click", () => (win.hidden ? openChat() : closeChat()));
+  let greeted=false;
+  function openChat(){ win.hidden=false; fab.setAttribute("aria-expanded","true"); requestAnimationFrame(()=>win.classList.add("open")); if(!greeted){ greeted=true; setTimeout(()=>{ addMessage('¡Hola, agente! ◆ Pregúntame por <strong>agentes</strong>, <strong>mapas</strong>, la <strong>Spike</strong> o el <strong>VCT</strong>. También juega <a href="#juego">Memoria del Protocolo</a>.',"bot"); },350); } input.focus(); }
+  function closeChat(){ win.classList.remove("open"); fab.setAttribute("aria-expanded","false"); setTimeout(()=>{ win.hidden=true; },300); }
+  fab.addEventListener("click", ()=> win.hidden ? openChat() : closeChat());
   closeBtn.addEventListener("click", closeChat);
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    send(input.value);
-    input.value = "";
-  });
+  form.addEventListener("submit", (e)=>{ e.preventDefault(); send(input.value); input.value=""; });
 })();
