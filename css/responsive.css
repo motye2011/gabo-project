@@ -1035,6 +1035,45 @@ a:hover { color: var(--guacamaya); }
 .chip { padding: 0.45rem 0.9rem; }
 .mcard { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
+/* ---------- Pantallas retina y alta resolución — PDF 4x, HTML guía ---------- */
+/* Estándar 1px = 4px retina → iconos 256px estándar vs 650–900px retina */
+@media (min-resolution: 2dppx), (min-resolution: 192dpi) {
+  /* Imágenes más nítidas en retina: evita blur por upscaling */
+  .bio-frame img, .card, .centro-card { image-rendering: -webkit-optimize-contrast; }
+  .hero { background-image: radial-gradient(1200px 600px at 80% -10%, #24504a 0%, transparent 60%), var(--noche); }
+}
+@media (min-resolution: 3dppx) {
+  .stat-num { -webkit-font-smoothing: antialiased; }
+}
+/* Alta resolución archivo: 1000x500 vs 500x250 en retina (PDF ejemplo) */
+@media (min-width: 1920px) {
+  .hero-content { max-width: 960px; }
+  .container { max-width: 1320px; }
+}
+
+/* Hover solo en dispositivos con puntero — guía 2.Tipos: @media (hover: hover) */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--mariposa); }
+  .btn:hover { transform: translateY(-3px); }
+  .nav-links a:hover { color: var(--mariposa); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .mcard:hover .mcard-front { transform: translateY(-4px); box-shadow: inset 0 0 0 2px var(--mariposa), var(--shadow); }
+  .chat-fab:hover { transform: scale(1.08); background: var(--caribe); }
+}
+@media (hover: none) {
+  /* En móvil táctil, sin hover — feedback por active */
+  .card:active { transform: scale(0.98); }
+  .btn:active { transform: scale(0.97); }
+}
+
+/* Container Queries modernas — guía adaptabilidad (progresivo) */
+@supports (container-type: inline-size) {
+  .cards-grid { container-type: inline-size; }
+  @container (min-width: 600px) {
+    .card { padding: 2rem; }
+  }
+}
+
 /* Accesibilidad: usuarios que prefieren menos movimiento */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
