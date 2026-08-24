@@ -630,6 +630,73 @@ a:hover { color: var(--guacamaya); }
   .hero-title { view-transition-name: valorant-hero; }
 }
 
+/* ========== Animaciones visuales Valorant extra ========== */
+/* Glitch hero título al hover */
+.hero-title { position: relative; }
+.hero-title:hover { animation: vGlitch 0.32s steps(2, end); }
+@keyframes vGlitch {
+  0% { text-shadow: 2px 0 var(--mariposa), -2px 0 #00e5ff; transform: skewX(0); }
+  25% { text-shadow: -2px 0 var(--mariposa), 2px 0 #00e5ff; transform: skewX(-1deg); }
+  50% { text-shadow: 2px 0 #fff, -1px 0 var(--mariposa); transform: skewX(1deg); }
+  75% { text-shadow: -1px 0 #fff, 1px 0 #00e5ff; }
+  100% { text-shadow: none; transform: skewX(0); }
+}
+/* Cards agente — sweep rojo Valorant al hover */
+.card-agent { position: relative; overflow: hidden; }
+.card-agent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 40%, rgba(255,70,85,0.12) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.65s ease;
+  pointer-events: none;
+}
+.card-agent:hover::after { transform: translateX(120%); }
+.card-agent:hover { border-color: var(--mariposa); box-shadow: 0 10px 32px rgba(255,70,85,0.18); }
+.card-agent .card-img { transition: transform 0.4s ease, filter 0.4s ease; }
+.card-agent:hover .card-img { transform: scale(1.08) rotate(-1deg); filter: drop-shadow(0 4px 12px rgba(255,70,85,0.35)); }
+
+/* Spike pulse para botones primarios */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(300px 100px at 50% 50%, rgba(255,255,255,0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.btn-primary:hover::after { opacity: 1; animation: spikePulse 1.1s ease infinite; }
+@keyframes spikePulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+}
+/* Timeline año con pulso Valorant */
+.timeline-year { position: relative; display: inline-block; }
+.timeline-year::after {
+  content: "";
+  position: absolute;
+  inset: -4px -8px;
+  border: 1px solid color-mix(in srgb, var(--mariposa) 35%, transparent);
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.timeline-item:hover .timeline-year::after { opacity: 1; }
+/* Stats con shine */
+.stat { position: relative; overflow: hidden; }
+.stat::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+  transform: rotate(12deg) translateX(-60%);
+  transition: transform 0.7s ease;
+}
+.stat:hover::after { transform: rotate(12deg) translateX(60%); }
+
 /* ---------- 16. Sección Centro Gabo ---------- */
 .centro-grid { align-items: stretch; }
 
