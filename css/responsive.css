@@ -1012,6 +1012,29 @@ a:hover { color: var(--guacamaya); }
   .chat-window { height: min(480px, calc(100vh - 5rem)); }
 }
 
+/* ---------- Orientación móvil + giroscopio (PDF: vertical/horizontal) ---------- */
+@media (orientation: portrait) and (max-width: 768px) {
+  .hero { padding-block: clamp(3rem, 12vw, 6rem) clamp(2rem, 6vw, 3rem); }
+  .hero-stats { gap: 1rem; }
+  .game-board { grid-template-columns: repeat(3, 1fr); }
+}
+@media (orientation: landscape) and (max-width: 768px) {
+  /* Al girar el móvil, aprovecha el ancho */
+  .hero-stats { grid-template-columns: repeat(3, 1fr); }
+  .game-board { grid-template-columns: repeat(4, 1fr); }
+  .chat-window { height: min(360px, calc(100vh - 6rem)); width: min(420px, calc(100vw - 2rem)); }
+}
+/* Touch targets 44x44px — guía Usabilidad 1.Introducción */
+.btn, .nav-toggle, .chat-fab, .to-top, .mcard, .chip, .chat-send, .nav-links a {
+  min-height: 44px;
+  min-width: 44px;
+}
+.nav-links a { display: inline-flex; align-items: center; }
+.btn { display: inline-flex; align-items: center; justify-content: center; }
+.chip { min-height: 36px; } /* chips permiten 36px pero área táctil ampliada */
+.chip { padding: 0.45rem 0.9rem; }
+.mcard { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
 /* Accesibilidad: usuarios que prefieren menos movimiento */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
