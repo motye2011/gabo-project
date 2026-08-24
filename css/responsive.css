@@ -590,20 +590,45 @@ a:hover { color: var(--guacamaya); }
   pointer-events: auto;
 }
 
-/* ---------- 14. Animaciones de aparición (con JS) ---------- */
+/* ---------- 14. Animaciones de aparición Valorant (clip + slide) ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(28px);
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity, clip-path;
 }
 .reveal.in-view {
   opacity: 1;
   transform: translateY(0);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-/* Escalonado dentro de las grillas */
-.reveal:nth-child(2) { transition-delay: 0.08s; }
-.reveal:nth-child(3) { transition-delay: 0.16s; }
-.reveal:nth-child(4) { transition-delay: 0.24s; }
+/* Escalonado Valorant — delay angular */
+.reveal:nth-child(2) { transition-delay: 0.07s; }
+.reveal:nth-child(3) { transition-delay: 0.14s; }
+.reveal:nth-child(4) { transition-delay: 0.21s; }
+.reveal:nth-child(5) { transition-delay: 0.28s; }
+.reveal:nth-child(6) { transition-delay: 0.35s; }
+
+/* Transición suave entre secciones — barra roja Valorant */
+.section { position: relative; overflow: clip; }
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--mariposa), transparent);
+  opacity: 0;
+  transform: scaleX(0);
+  transition: transform 0.9s ease, opacity 0.9s ease;
+  transform-origin: left;
+}
+.section.in-view::before { opacity: 0.5; transform: scaleX(1); }
+
+/* View transitions API (progresivo) */
+@supports (view-transition-name: hero) {
+  .hero-title { view-transition-name: valorant-hero; }
+}
 
 /* ---------- 16. Sección Centro Gabo ---------- */
 .centro-grid { align-items: stretch; }
