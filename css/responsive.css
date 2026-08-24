@@ -677,32 +677,42 @@ a:hover { color: var(--guacamaya); }
   text-align: center;
 }
 
-/* Reverso: noche de Macondo con mariposa */
+/* Reverso: Valorant oscuro con V */
 .mcard-front {
   background:
-    radial-gradient(120px 120px at 70% 20%, #24504a, transparent 70%),
+    radial-gradient(120px 120px at 70% 20%, rgba(255,70,85,0.22), transparent 70%),
     var(--noche);
   font-size: clamp(1.4rem, 4vw, 2.2rem);
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--mariposa) 35%, transparent);
+  color: var(--mariposa);
+  font-weight: 900;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--mariposa) 45%, transparent);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .mcard:hover .mcard-front { transform: translateY(-4px); box-shadow: inset 0 0 0 2px var(--mariposa), var(--shadow); }
 
-/* Frente: título u año+pista */
+/* Frente: foto vs nombre */
 .mcard-back {
   transform: rotateY(180deg);
   font-family: var(--f-display);
   font-weight: 600;
   font-size: clamp(0.72rem, 1.7vw, 0.95rem);
   line-height: 1.25;
+  overflow: hidden;
 }
-.mcard-back.titulo { background: var(--mariposa); color: var(--noche); }
-.mcard-back.pista {
-  background: var(--caribe);
-  color: var(--papel);
+.mcard-back.foto { background: #111418; padding: 0; }
+.mcard-back.foto img { width: 100%; height: 100%; object-fit: contain; background: #0f1923; padding: 8%; }
+.mcard-back.nombre {
+  background: var(--mariposa);
+  color: #fff;
   font-family: var(--f-ui);
-  font-weight: 700;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-direction: column;
 }
+/* compatibilidad legacy */
+.mcard-back.titulo { background: var(--mariposa); color: #fff; }
+.mcard-back.pista { background: var(--noche); color: var(--papel); }
 
 /* Pareja encontrada: pulso dorado y se queda fija */
 .mcard.is-matched { cursor: default; }

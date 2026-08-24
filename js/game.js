@@ -1,9 +1,7 @@
 /* ============================================================
-   JUEGO: MEMORIA DE MACONDO
-   Juego de parejas sobre las obras de Gabo.
-   Cada obra tiene dos cartas: el TÍTULO y su AÑO + PISTA.
-   Animaciones: volteo 3D en CSS, sacudida al fallar,
-   pulso al acertar y lluvia de mariposas al ganar.
+   JUEGO: MEMORIA VALORANT
+   Parejas Agente FOTO ↔ NOMBRE+ROL.
+   Una carta muestra el retrato oficial, su gemela el nombre.
    ============================================================ */
 
 (function memoryGame() {
@@ -16,14 +14,14 @@
   const winBox = document.getElementById("gameWin");
   const winText = document.getElementById("gameWinText");
 
-  /* ---------- Datos: 6 obras = 12 cartas ---------- */
+  /* ---------- Datos: 6 agentes = 12 cartas FOTO ↔ NOMBRE ---------- */
   const OBRAS = [
-    { id: "hojarasca", titulo: "La hojarasca",                          pista: "1955 · Nace Macondo" },
-    { id: "coronel",   titulo: "El coronel no tiene quien le escriba",  pista: "1961 · La carta que no llega" },
-    { id: "cien",      titulo: "Cien años de soledad",                  pista: "1967 · Los Buendía" },
-    { id: "cronica",   titulo: "Crónica de una muerte anunciada",       pista: "1981 · Un crimen anunciado" },
-    { id: "colera",    titulo: "El amor en los tiempos del cólera",     pista: "1985 · Medio siglo de espera" },
-    { id: "vivir",     titulo: "Vivir para contarla",                   pista: "2002 · Sus memorias" }
+    { id: "jett",     nombre: "Jett",     rol: "Duelista",   img: "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/displayicon.png" },
+    { id: "phoenix",  nombre: "Phoenix",  rol: "Duelista",   img: "https://media.valorant-api.com/agents/eb93336a-449b-9c1b-0a54-a891f7921d69/displayicon.png" },
+    { id: "sage",     nombre: "Sage",     rol: "Centinela",  img: "https://media.valorant-api.com/agents/569fdd95-4d10-43ab-ca70-79becc718b46/displayicon.png" },
+    { id: "sova",     nombre: "Sova",     rol: "Iniciador",  img: "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-1f93a9b638fa/displayicon.png" },
+    { id: "reyna",    nombre: "Reyna",    rol: "Duelista",   img: "https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/displayicon.png" },
+    { id: "killjoy",  nombre: "Killjoy",  rol: "Centinela",  img: "https://media.valorant-api.com/agents/1e58de9c-4950-5125-93e9-a0aee9f98746/displayicon.png" }
   ];
 
   let deck = [];        // cartas mezcladas
@@ -60,8 +58,10 @@
   function buildDeck() {
     deck = [];
     OBRAS.forEach((o) => {
-      deck.push({ pair: o.id, face: o.titulo, kind: "titulo" });
-      deck.push({ pair: o.id, face: o.pista,  kind: "pista"  });
+      // Carta FOTO: img oficial
+      deck.push({ pair: o.id, face: '<img src="' + o.img + '" alt="' + o.nombre + '" loading="lazy" width="80" height="80">', kind: "foto" });
+      // Carta NOMBRE: nombre + rol
+      deck.push({ pair: o.id, face: '<strong>' + o.nombre + '</strong><br><span style="font-size:0.78em;opacity:0.9">' + o.rol + '</span>', kind: "nombre" });
     });
     shuffle(deck);
   }
@@ -74,11 +74,12 @@
       btn.type = "button";
       btn.dataset.pair = card.pair;
       btn.dataset.index = i;
-      btn.setAttribute("aria-label", "Carta oculta " + (i + 1));
-      btn.style.animationDelay = (i * 45) + "ms"; // entrada escalonada
+      btn.setAttribute("aria-label", "Carta oculta " + (i + 1) + " — encuentra el agente");
+      btn.style.animationDelay = (i * 45) + "ms";
+      const frontIcon = '<span class="mcard-front" aria-hidden="true"><span style="font-weight:900;letter-spacing:0.06em;">V</span></span>';
       btn.innerHTML =
         '<span class="mcard-inner">' +
-        '  <span class="mcard-front" aria-hidden="true">🦋</span>' +
+        frontIcon +
         '  <span class="mcard-back ' + card.kind + '">' + card.face + "</span>" +
         "</span>";
       btn.addEventListener("click", () => flip(btn));
@@ -126,7 +127,7 @@
   function win() {
     clearInterval(timer);
     winText.textContent =
-      "Encontraste las 6 parejas en " + moves + " movimientos y " + formatTime(seconds) + ".";
+      "¡Protocolo completado! Emparejaste los 6 agentes en " + moves + " movimientos y " + formatTime(seconds) + ". GG!";
     winBox.hidden = false;
     requestAnimationFrame(() => winBox.classList.add("show"));
   }
