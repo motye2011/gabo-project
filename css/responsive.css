@@ -313,11 +313,27 @@ a:hover { color: var(--guacamaya); }
   aspect-ratio: 3 / 4;
 }
 .bio-frame:hover { transform: rotate(0deg) scale(1.02); }
+.bio-frame picture,
 .bio-frame img {
   width: 100%; height: 100%;
   object-fit: cover;
   position: relative;
   z-index: 2;
+  display: block;
+}
+.bio-frame picture { position: absolute; inset: 0; }
+/* Imágenes responsivas — guía: max-width 100%, aspect-ratio, srcset */
+.bio-frame {
+  aspect-ratio: 3 / 4;
+  /* Fallback alta resolución para archivo f.jpg — PDF retina 4x */
+  image-rendering: -webkit-optimize-contrast;
+}
+@supports (aspect-ratio: 1) {
+  .bio-frame { aspect-ratio: 3 / 4; }
+}
+/* Alta resolución: si el archivo existe, usa versión 2x sin pixelar */
+@media (min-resolution: 2dppx) {
+  .bio-frame img { image-rendering: auto; }
 }
 
 /* Respaldo si no existe la foto f.jpg */

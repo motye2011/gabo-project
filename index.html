@@ -96,8 +96,22 @@
 
       <figure class="bio-figure reveal">
         <div class="bio-frame">
-          <img src="f.jpg" alt="Retrato de Gabriel García Márquez"
-               onerror="this.closest('.bio-frame').classList.add('no-photo'); this.remove();">
+          <!-- Imagen responsiva: estándar 256–4Mpx, retina 650–900px (1px estándar = 4px retina) -->
+          <picture>
+            <!-- Alta resolución / retina: 1000x1333 (2x) y 650x867 (1.5x) -->
+            <source
+              srcset="f.jpg 480w, f.jpg 768w, f.jpg 1200w"
+              sizes="(max-width: 480px) 90vw, (max-width: 768px) 380px, 380px"
+              type="image/jpeg">
+            <img src="f.jpg"
+                 srcset="f.jpg 480w, f.jpg 768w, f.jpg 1200w"
+                 sizes="(max-width: 480px) 90vw, (max-width: 768px) 380px, 380px"
+                 alt="Retrato de Gabriel García Márquez"
+                 width="380" height="507"
+                 loading="lazy"
+                 decoding="async"
+                 onerror="this.closest('.bio-frame').classList.add('no-photo'); this.remove();">
+          </picture>
           <div class="bio-fallback" aria-hidden="true">
             <span class="bio-initials">GGM</span>
           </div>
