@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La vida de Gabo: biografía, obras, frases y legado de Gabriel García Márquez, Premio Nobel de Literatura 1982.">
+  <title>La vida de Gabo · Gabriel García Márquez</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@500;700&display=swap" rel="stylesheet">
+
+  <link href="css/responsive.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- ============ NAVEGACIÓN ============ -->
+<header class="site-header" id="inicio">
+  <nav class="nav container" aria-label="Navegación principal">
+    <a class="nav-brand" href="#inicio">Gabo<span class="nav-dot">.</span></a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#biografia">Biografía</a></li>
+      <li><a href="#linea-tiempo">Línea de tiempo</a></li>
+      <li><a href="#obras">Obras</a></li>
+      <li><a href="#video">Discurso Nobel</a></li>
+      <li><a href="#juego">Juego</a></li>
+      <li><a href="#centro-gabo">Centro Gabo</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============ HERO con mariposas amarillas ============ -->
+<section class="hero">
+  <canvas id="butterflies" aria-hidden="true"></canvas>
+
+  <div class="hero-content container">
+    <p class="eyebrow reveal">Aracataca, 1927 — Ciudad de México, 2014</p>
+    <h1 class="hero-title reveal">La vida de <em>Gabo</em></h1>
+    <p class="hero-sub reveal">
+      Gabriel García Márquez: periodista, novelista y padre del realismo mágico.
+      Premio Nobel de Literatura 1982.
+    </p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#biografia">Conocer su historia</a>
+      <a class="btn btn-ghost" href="#obras">Ver sus obras</a>
+    </div>
+  </div>
+
+  <div class="hero-stats container">
+    <div class="stat reveal"><span class="stat-num" data-count="1982">0</span><span class="stat-label">Premio Nobel</span></div>
+    <div class="stat reveal"><span class="stat-num" data-count="46">0</span><span class="stat-label">idiomas traducido</span></div>
+    <div class="stat reveal"><span class="stat-num" data-count="50">0</span><span class="stat-label">millones de ejemplares de "Cien años de soledad"</span></div>
+  </div>
+</section>
+
+<main>
+
+  <!-- ============ BIOGRAFÍA ============ -->
+  <section class="section" id="biografia">
+    <div class="container grid grid-2">
+
+      <article class="bio-text reveal">
+        <p class="eyebrow">Biografía</p>
+        <h2>Gabo, el irreverente</h2>
+        <p>
+          Gabriel José de la Concordia García Márquez nació el 6 de marzo de 1927 en Aracataca,
+          un pueblo del Caribe colombiano que más tarde se transformaría en Macondo, el escenario
+          mítico de sus novelas. Criado por sus abuelos maternos, creció entre las historias
+          fantásticas de su abuela y los relatos de guerra del coronel Nicolás Márquez, su abuelo.
+        </p>
+        <p>
+          Antes de ser novelista fue periodista: escribió en <em>El Universal</em> de Cartagena,
+          <em>El Heraldo</em> de Barranquilla y <em>El Espectador</em> de Bogotá. En Barranquilla
+          se unió al legendario Grupo de Barranquilla, donde descubrió a Faulkner, Kafka y
+          Virginia Woolf, influencias decisivas en su estilo.
+        </p>
+        <p>
+          En 1967 publicó <strong>"Cien años de soledad"</strong>, la saga de la familia Buendía
+          que lo consagró como una de las voces mayores de la lengua española y pieza central
+          del <em>boom</em> latinoamericano. En 1982 recibió el Premio Nobel de Literatura por
+          unir fantasía y realismo en un universo que refleja la vida y los conflictos de todo
+          un continente.
+        </p>
+        <p>
+          Murió el 17 de abril de 2014 en Ciudad de México, dejando un legado que sigue
+          inspirando a lectores, escritores y periodistas en todo el mundo.
+        </p>
+      </article>
+
+      <figure class="bio-figure reveal">
+        <div class="bio-frame">
+          <img src="f.jpg" alt="Retrato de Gabriel García Márquez"
+               onerror="this.closest('.bio-frame').classList.add('no-photo'); this.remove();">
+          <div class="bio-fallback" aria-hidden="true">
+            <span class="bio-initials">GGM</span>
+          </div>
+        </div>
+        <figcaption>El cronista de Macondo, entre el periodismo y la fábula.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============ LÍNEA DE TIEMPO ============ -->
+  <section class="section section-alt" id="linea-tiempo">
+    <div class="container">
+      <p class="eyebrow reveal">Cronología</p>
+      <h2 class="reveal">Una vida para contarla</h2>
+
+      <ol class="timeline">
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1927</span>
+          <h3>Nace en Aracataca</h3>
+          <p>Llega al mundo en el Caribe colombiano, en la casa de sus abuelos, semilla del futuro Macondo.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1948</span>
+          <h3>Comienza en el periodismo</h3>
+          <p>Abandona el derecho y empieza a publicar en la prensa de Cartagena y Barranquilla.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1955</span>
+          <h3>"La hojarasca"</h3>
+          <p>Publica su primera novela, donde aparece por primera vez el pueblo de Macondo.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1967</span>
+          <h3>"Cien años de soledad"</h3>
+          <p>Escrita en Ciudad de México, la novela se convierte en un fenómeno mundial inmediato.</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1982</span>
+          <h3>Premio Nobel de Literatura</h3>
+          <p>Recibe el Nobel en Estocolmo y pronuncia el célebre discurso "La soledad de América Latina".</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">1994</span>
+          <h3>Fundación de periodismo</h3>
+          <p>Crea en Cartagena la Fundación para un Nuevo Periodismo Iberoamericano (hoy Fundación Gabo).</p>
+        </li>
+        <li class="timeline-item reveal">
+          <span class="timeline-year">2014</span>
+          <h3>Adiós al maestro</h3>
+          <p>Fallece en Ciudad de México; Colombia decreta tres días de duelo nacional.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ OBRAS ============ -->
+  <section class="section" id="obras">
+    <div class="container">
+      <p class="eyebrow reveal">Bibliografía esencial</p>
+      <h2 class="reveal">Sus obras</h2>
+      <p class="section-intro reveal">Novelas, crónicas y memorias que definieron el realismo mágico. Haz clic en cada tarjeta para leer más en Wikipedia.</p>
+
+      <div class="grid cards-grid">
+
+        <article class="card reveal">
+          <span class="card-year">1967</span>
+          <h3>Cien años de soledad</h3>
+          <p>La saga de siete generaciones de los Buendía en Macondo, obra cumbre del realismo mágico.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/Cien_a%C3%B1os_de_soledad" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+        <article class="card reveal">
+          <span class="card-year">1961</span>
+          <h3>El coronel no tiene quien le escriba</h3>
+          <p>Un viejo coronel espera, con dignidad y hambre, la pensión de guerra que nunca llega.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/El_coronel_no_tiene_quien_le_escriba" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+        <article class="card reveal">
+          <span class="card-year">1981</span>
+          <h3>Crónica de una muerte anunciada</h3>
+          <p>La reconstrucción, con pulso de reportero, de un crimen que todo un pueblo vio venir.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/Cr%C3%B3nica_de_una_muerte_anunciada" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+        <article class="card reveal">
+          <span class="card-year">1985</span>
+          <h3>El amor en los tiempos del cólera</h3>
+          <p>Florentino Ariza espera más de medio siglo por el amor de Fermina Daza.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/El_amor_en_los_tiempos_del_c%C3%B3lera" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+        <article class="card reveal">
+          <span class="card-year">2002</span>
+          <h3>Vivir para contarla</h3>
+          <p>Sus memorias: la infancia en Aracataca, el periodismo y el nacimiento de un escritor.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/Vivir_para_contarla" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+        <article class="card reveal">
+          <span class="card-year">2004</span>
+          <h3>Memoria de mis putas tristes</h3>
+          <p>Su última novela publicada en vida: una meditación sobre la vejez y el amor tardío.</p>
+          <a class="card-link" href="https://es.wikipedia.org/wiki/Memorias_de_mis_putas_tristes" target="_blank" rel="noopener">Leer más →</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CITA ============ -->
+  <section class="section quote-band">
+    <div class="container">
+      <blockquote class="big-quote reveal">
+        <p>«La vida no es la que uno vivió, sino la que uno recuerda»</p>
+        <cite>— Gabriel García Márquez, epígrafe de <em>Vivir para contarla</em></cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section class="section section-alt" id="video">
+    <div class="container grid grid-2">
+      <div class="video-text reveal">
+        <p class="eyebrow">8 de diciembre de 1982 · Estocolmo</p>
+        <h2>"La soledad de América Latina"</h2>
+        <p>
+          Al recibir el Nobel, Gabo pronunció uno de los discursos más recordados de la historia
+          del premio. En él reivindicó la realidad desmesurada de América Latina —sus dictaduras,
+          exilios y maravillas— y defendió el derecho del continente a ser comprendido con sus
+          propios esquemas, no con los de Europa.
+        </p>
+        <p>
+          El discurso cierra con un llamado a una «utopía de la vida» donde las estirpes condenadas
+          a cien años de soledad tengan una segunda oportunidad sobre la tierra.
+        </p>
+      </div>
+
+      <div class="video-wrap reveal">
+        <iframe
+          src="https://www.youtube.com/embed/3uRbIC27YCM"
+          title="Discurso Nobel de Gabriel García Márquez (1982)"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JUEGO: MEMORIA DE MACONDO ============ -->
+  <section class="section" id="juego">
+    <div class="container">
+      <p class="eyebrow reveal">Juega y aprende</p>
+      <h2 class="reveal">Memoria de Macondo</h2>
+      <p class="section-intro reveal">
+        Encuentra las parejas: cada <strong>obra de Gabo</strong> tiene su carta gemela con el
+        <strong>año y una pista</strong>. Voltea dos cartas por turno; si coinciden, se quedan
+        abiertas. ¡Completa el tablero en el menor número de movimientos!
+      </p>
+
+      <div class="game-hud reveal">
+        <div class="hud-item"><span id="gameMoves">0</span> movimientos</div>
+        <div class="hud-item"><span id="gamePairs">0</span>/6 parejas</div>
+        <div class="hud-item"><span id="gameTime">0:00</span></div>
+        <button class="btn btn-primary btn-small" id="gameRestart">Reiniciar</button>
+      </div>
+
+      <div class="game-board reveal" id="gameBoard" aria-label="Tablero del juego de memoria"></div>
+
+      <!-- Pantalla de victoria -->
+      <div class="game-win" id="gameWin" hidden>
+        <div class="game-win-card">
+          <div class="win-butterflies" aria-hidden="true">
+            <span>🦋</span><span>🦋</span><span>🦋</span><span>🦋</span><span>🦋</span>
+          </div>
+          <h3>¡Macondo recuperó su memoria!</h3>
+          <p id="gameWinText">Completaste el tablero.</p>
+          <button class="btn btn-primary" id="gamePlayAgain">Jugar de nuevo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CENTRO GABO ============ -->
+  <section class="section section-alt" id="centro-gabo">
+    <div class="container">
+      <p class="eyebrow reveal">Cartagena de Indias, Colombia</p>
+      <h2 class="reveal">El Centro Gabo</h2>
+      <p class="section-intro reveal">
+        El <a href="https://centrogabo.org/" target="_blank" rel="noopener">Centro Gabo</a> es una
+        iniciativa de la Fundación Gabo dedicada a descubrir, conservar y vivir el legado de
+        Gabriel García Márquez: un espacio de innovación cultural, educativa y digital que inspira
+        a niños, jóvenes y ciudadanos del mundo desde Cartagena.
+      </p>
+
+      <div class="grid grid-2 centro-grid">
+        <article class="centro-card reveal">
+          <h3>Gabo y su legado</h3>
+          <p>
+            El portal reúne su biografía, una cronología interactiva, la sección
+            <em>Contemos a Gabo</em> con historias sobre su vida y obra, <em>Gabo Habla</em>
+            con entrevistas históricas, y una <em>Memoria Colectiva</em> construida con
+            testimonios y anécdotas de lectores de todo el mundo.
+          </p>
+          <ul class="centro-links">
+            <li><a href="https://centrogabo.org/gabo/contemos-gabo/quien-fue-gabriel-garcia-marquez" target="_blank" rel="noopener">Biografía en Centro Gabo</a></li>
+            <li><a href="https://centrogabo.org/index.php/gabo/cronologia" target="_blank" rel="noopener">Cronología</a></li>
+            <li><a href="https://centrogabo.org/gabo/gabo-habla" target="_blank" rel="noopener">Gabo Habla (entrevistas)</a></li>
+            <li><a href="https://centrogabo.org/gabo/memoria-colectiva" target="_blank" rel="noopener">Memoria Colectiva</a></li>
+          </ul>
+        </article>
+
+        <article class="centro-card reveal">
+          <h3>Formación virtual gratuita</h3>
+          <p>
+            En su plataforma de <a href="https://centrogabo.org/formacion-virtual/" target="_blank" rel="noopener">formación
+            virtual</a>, la Fundación Gabo ofrece cursos de acceso libre inspirados en el método
+            de taller y en la memoria del nobel:
+          </p>
+          <ul class="centro-links">
+            <li><a href="https://centrogabo.org/formacion-virtual/course/view.php?id=71" target="_blank" rel="noopener"><strong>La mochila de Gabo</strong></a> — educación mediática digital: identificar la desinformación y usar la IA con criterio.</li>
+            <li><a href="https://centrogabo.org/formacion-virtual/course/view.php?id=61" target="_blank" rel="noopener"><strong>Cronicando con Gabo</strong></a> — periodismo escolar: escribir noticias, entrevistar y contar historias.</li>
+            <li><a href="https://centrogabo.org/formacion-virtual/course/view.php?id=70" target="_blank" rel="noopener"><strong>Punto y aparte</strong></a> — herramientas para investigar y crear contenidos multiformato.</li>
+            <li><a href="https://centrogabo.org/formacion-virtual/course/view.php?id=69" target="_blank" rel="noopener"><strong>Septimus</strong></a> — análisis e interpretación de textos y datos.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOTICIAS ============ -->
+  <section class="section" id="noticias">
+    <div class="container">
+      <p class="eyebrow reveal">Noticias</p>
+      <h2 class="reveal">Actualidad garciamarquiana</h2>
+
+      <div class="grid news-grid">
+        <article class="news-item reveal">
+          <time datetime="2024-11-14">14 Nov 2024</time>
+          <h3>Rediseño del sitio</h3>
+          <p>Nueva versión responsiva del sitio "La vida de Gabo", con grillas CSS, animaciones y contenido ampliado.</p>
+        </article>
+        <article class="news-item reveal">
+          <time datetime="2023-12-06">Legado</time>
+          <h3>Macondo en pantalla</h3>
+          <p>"Cien años de soledad" llegó a la televisión como serie, rodada en Colombia y en español, tal como pidió la familia del escritor.</p>
+        </article>
+        <article class="news-item reveal">
+          <time datetime="2014-04-17">Archivo</time>
+          <h3>La Fundación Gabo</h3>
+          <p>Creada por el propio Gabo en Cartagena, sigue formando periodistas de toda Iberoamérica y entregando el Premio Gabo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">Gabo<span class="nav-dot">.</span></p>
+      <p>Un homenaje a Gabriel García Márquez (1927–2014).</p>
+    </div>
+    <nav aria-label="Enlaces del pie">
+      <ul class="footer-links">
+        <li><a href="#biografia">Biografía</a></li>
+        <li><a href="#obras">Obras</a></li>
+        <li><a href="#video">Discurso Nobel</a></li>
+      </ul>
+    </nav>
+    <p class="footer-credit">AdSo resizing · Sitio de ejemplo con HTML semántico, CSS Grid y JS.</p>
+  </div>
+</footer>
+
+<a href="#inicio" class="to-top" id="toTop" aria-label="Volver arriba">↑</a>
+
+<!-- ============ CHATBOT "PREGÚNTALE A GABO" ============ -->
+<button class="chat-fab" id="chatFab" aria-label="Abrir chat sobre Gabo" aria-expanded="false">
+  <span class="chat-fab-icon">🦋</span>
+</button>
+
+<div class="chat-window" id="chatWindow" hidden>
+  <div class="chat-header">
+    <div>
+      <p class="chat-title">Pregúntale a Gabo</p>
+      <p class="chat-sub">Bot sobre su vida, obras y el Centro Gabo</p>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">×</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+
+  <div class="chat-chips" id="chatChips"></div>
+
+  <form class="chat-input-row" id="chatForm" autocomplete="off">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta">
+    <button type="submit" class="chat-send" aria-label="Enviar">➤</button>
+  </form>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
