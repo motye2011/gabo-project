@@ -1,6 +1,6 @@
 /* ============================================================
-   LA VIDA DE GABO — JavaScript
-   1. Mariposas amarillas en el hero (canvas)
+   VALORANT — JavaScript
+   1. Iconos Valorant flotantes en el hero (efecto táctico)
    2. Animaciones de aparición al hacer scroll (IntersectionObserver)
    3. Contadores animados en las estadísticas
    4. Menú hamburguesa en móvil
@@ -9,86 +9,37 @@
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- 1. Mariposas amarillas (el guiño a Mauricio Babilonia) ---------- */
-(function butterflies() {
-  const canvas = document.getElementById("butterflies");
-  if (!canvas || reducedMotion) return;
-
-  const ctx = canvas.getContext("2d");
-  let width, height, flock = [];
-
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    width = canvas.width = rect.width;
-    height = canvas.height = rect.height;
-  }
-
-  function makeButterfly() {
-    return {
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: 5 + Math.random() * 8,          // tamaño del ala
-      angle: Math.random() * Math.PI * 2,   // dirección de vuelo
-      speed: 0.25 + Math.random() * 0.55,
-      flap: Math.random() * Math.PI * 2,    // fase del aleteo
-      flapSpeed: 0.12 + Math.random() * 0.12,
-      drift: (Math.random() - 0.5) * 0.02,  // giro suave
-      alpha: 0.5 + Math.random() * 0.5
-    };
-  }
-
-  function draw(b) {
-    const wing = Math.abs(Math.sin(b.flap)); // 0 = alas cerradas, 1 = abiertas
-    ctx.save();
-    ctx.translate(b.x, b.y);
-    ctx.rotate(b.angle + Math.PI / 2);
-    ctx.globalAlpha = b.alpha;
-    ctx.fillStyle = "#f2c14e";
-
-    // Ala izquierda y derecha (elipses que se pliegan con el aleteo)
-    for (const side of [-1, 1]) {
-      ctx.beginPath();
-      ctx.ellipse(
-        side * b.size * 0.55 * wing, 0,
-        b.size * 0.6 * Math.max(wing, 0.25), b.size,
-        side * 0.5, 0, Math.PI * 2
-      );
-      ctx.fill();
-    }
-
-    // Cuerpo
-    ctx.globalAlpha = b.alpha * 0.9;
-    ctx.fillStyle = "#b58a2a";
-    ctx.beginPath();
-    ctx.ellipse(0, 0, b.size * 0.14, b.size * 0.8, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, width, height);
-    for (const b of flock) {
-      b.flap += b.flapSpeed;
-      b.angle += b.drift + Math.sin(b.flap * 0.3) * 0.01;
-      b.x += Math.cos(b.angle) * b.speed;
-      b.y += Math.sin(b.angle) * b.speed - 0.08; // tienden a subir
-
-      // Reaparecen por el lado contrario al salir
-      if (b.x < -20) b.x = width + 20;
-      if (b.x > width + 20) b.x = -20;
-      if (b.y < -20) b.y = height + 20;
-      if (b.y > height + 20) b.y = -20;
-
-      draw(b);
-    }
-    requestAnimationFrame(step);
-  }
-
-  resize();
-  const count = Math.min(26, Math.max(10, Math.floor(width / 60)));
-  flock = Array.from({ length: count }, makeButterfly);
-  window.addEventListener("resize", resize);
-  step();
+/* ---------- 1. Iconos Valorant flotantes (reemplaza mariposas) ---------- */
+(function valorantIcons() {
+  const container = document.querySelector(".valorant-hero-icons");
+  if (!container || reducedMotion) return;
+  const icons = container.querySelectorAll(".v-icon");
+  icons.forEach((el, i) => {
+    const x = 10 + Math.random() * 80; // % left
+    const delay = Math.random() * 6;
+    const duration = 7 + Math.random() * 6;
+    const size = 14 + Math.random() * 18;
+    el.style.left = x + "%";
+    el.style.top = (20 + Math.random() * 60) + "%";
+    el.style.fontSize = size + "px";
+    el.style.animationDelay = delay + "s";
+    el.style.animationDuration = duration + "s";
+    el.style.opacity = 0.08 + Math.random() * 0.12;
+    // parallax leve al mover mouse
+    el.dataset.parallax = (0.5 + Math.random() * 0.8).toFixed(2);
+  });
+  // parallax con mousemove
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) / rect.width - 0.5;
+    const cy = (e.clientY - rect.top) / rect.height - 0.5;
+    icons.forEach((el) => {
+      const p = parseFloat(el.dataset.parallax);
+      el.style.transform = `translate3d(${cx * 18 * p}px, ${cy * 18 * p}px, 0) rotate(${cx * 8}deg)`;
+    });
+  });
 })();
 
 /* ---------- 2. Aparición al hacer scroll ---------- */
