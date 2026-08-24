@@ -7,6 +7,7 @@
    5. Botón "volver arriba"
    ============================================================ */
 
+document.documentElement.classList.remove("no-js");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- 1. Iconos Valorant flotantes (reemplaza mariposas) ---------- */
@@ -42,7 +43,7 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
   });
 })();
 
-/* ---------- 2. Aparición al hacer scroll ---------- */
+/* ---------- 2. Aparición al hacer scroll (con fallback anti-blanco) ---------- */
 (function scrollReveal() {
   const items = document.querySelectorAll(".reveal");
   if (reducedMotion || !("IntersectionObserver" in window)) {
@@ -55,14 +56,27 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in-view");
-          observer.unobserve(entry.target); // solo anima una vez
+          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
   );
 
   items.forEach((el) => observer.observe(el));
+
+  // Fallback: si tras 800ms (post-loader) siguen ocultos, fuerza visible (fix blanco)
+  setTimeout(() => {
+    const hidden = document.querySelectorAll(".reveal:not(.in-view)");
+    if (hidden.length > 6) { // muchas ocultas = observer no disparó
+      hidden.forEach(el => el.classList.add("in-view"));
+    }
+  }, 900);
+
+  // Segundo fallback tras 2.5s
+  setTimeout(() => {
+    document.querySelectorAll(".reveal:not(.in-view)").forEach(el=>el.classList.add("in-view"));
+  }, 2500);
 })();
 
 /* ---------- 3. Contadores animados ---------- */
