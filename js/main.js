@@ -131,3 +131,29 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
     btn.classList.toggle("visible", window.scrollY > 600);
   }, { passive: true });
 })();
+
+/* ---------- 6. Pantalla de carga Valorant ---------- */
+(function loader() {
+  const loaderEl = document.getElementById("valorant-loader");
+  const progress = document.getElementById("loaderProgress");
+  if (!loaderEl || !progress) return;
+  if (reducedMotion) { loaderEl.classList.add("hidden"); loaderEl.setAttribute("aria-hidden","true"); return; }
+
+  let pct = 0;
+  const interval = setInterval(() => {
+    pct += Math.random() * 22 + 8;
+    if (pct >= 100) { pct = 100; clearInterval(interval); progress.style.width = "100%";
+      setTimeout(() => {
+        loaderEl.classList.add("hidden");
+        loaderEl.setAttribute("aria-hidden","true");
+        document.body.style.overflow = "";
+        // disparo de reveal tras carga
+        document.querySelectorAll(".hero .reveal").forEach(el=>el.classList.add("in-view"));
+      }, 380);
+    } else { progress.style.width = pct + "%"; }
+  }, 180);
+  // bloqueo scroll mientras carga
+  document.body.style.overflow = "hidden";
+  // fallback por si no dispara interval
+  window.addEventListener("load", () => setTimeout(()=>{ if(!loaderEl.classList.contains("hidden")){ progress.style.width="100%"; setTimeout(()=>loaderEl.classList.add("hidden"),300);} }, 700));
+})();

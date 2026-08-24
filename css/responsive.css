@@ -1122,6 +1122,76 @@ a:hover { color: var(--guacamaya); }
   }
 }
 
+/* ========== PANTALLA DE CARGA VALORANT ========== */
+#valorant-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(180deg, #0f1923 0%, #020a14 100%);
+  display: grid;
+  place-items: center;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+#valorant-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader-inner { text-align: center; width: min(420px, 90vw); }
+.loader-logo {
+  font-family: var(--f-display);
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--papel);
+  line-height: 1;
+  animation: loaderPulse 1.4s ease-in-out infinite;
+}
+.loader-logo span { color: var(--mariposa); }
+.loader-bar {
+  height: 4px;
+  background: rgba(236, 232, 225, 0.15);
+  margin: 1.6rem 0 1rem;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+.loader-progress {
+  height: 100%;
+  width: 0%;
+  background: var(--mariposa);
+  box-shadow: 0 0 12px rgba(255,70,85,0.6);
+  transition: width 0.25s ease;
+  animation: loaderShine 1.1s linear infinite;
+}
+.loader-text {
+  font-family: var(--f-ui);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: var(--papel);
+}
+.loader-dots { animation: loaderDots 1.2s steps(4, end) infinite; }
+.loader-sub {
+  font-family: var(--f-ui);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: color-mix(in srgb, var(--papel) 60%, transparent);
+  margin-top: 0.4rem;
+}
+@keyframes loaderPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,70,85,0)); }
+  50% { transform: scale(1.02); filter: drop-shadow(0 0 12px rgba(255,70,85,0.35)); }
+}
+@keyframes loaderShine {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.25); }
+  100% { filter: brightness(1); }
+}
+@keyframes loaderDots {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* Accesibilidad: usuarios que prefieren menos movimiento */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1132,4 +1202,5 @@ a:hover { color: var(--guacamaya); }
   .reveal { opacity: 1; transform: none; }
   #butterflies { display: none; }
   .valorant-hero-icons { display: none; }
+  #valorant-loader { display: none; }
 }
