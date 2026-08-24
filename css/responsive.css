@@ -21,25 +21,43 @@
   --f-body:    "Source Serif 4", Georgia, serif;
   --f-ui:      "Archivo", "Helvetica Neue", sans-serif;
 
-  /* Escala tipográfica fluida */
-  --fs-hero:  clamp(3rem, 9vw, 6.5rem);
-  --fs-h2:    clamp(1.9rem, 4vw, 3rem);
-  --fs-h3:    1.25rem;
-  --fs-body:  1.05rem;
-  --fs-small: 0.85rem;
+  /* Escala tipográfica fluida — Mobile First (guía: clamp 1.5rem → 3rem) */
+  --fs-hero:  clamp(2.4rem, 8vw + 1rem, 6.5rem);
+  --fs-h2:    clamp(1.7rem, 3.5vw + 0.5rem, 3rem);
+  --fs-h3:    clamp(1.1rem, 1.5vw + 0.8rem, 1.35rem);
+  --fs-body:  clamp(0.98rem, 1vw + 0.7rem, 1.08rem);
+  --fs-small: clamp(0.78rem, 0.8vw + 0.6rem, 0.88rem);
 
-  /* Layout */
-  --container: 1140px;
+  /* Layout — contenedor fluido por tipo de pantalla (PDF: SD 640 → HD 1920) */
+  --container: min(1140px, 92vw);
+  --container-sm: 540px;
+  --container-md: 720px;
+  --container-lg: 960px;
+  --container-xl: 1140px;
   --radius: 14px;
-  --gap: clamp(1.25rem, 3vw, 2.5rem);
+  --gap: clamp(1rem, 2.5vw, 2.5rem);
+  --gap-sm: clamp(0.75rem, 2vw, 1.25rem);
   --shadow: 0 10px 30px rgba(22, 48, 43, 0.12);
   --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Breakpoints — guía Tipos de Pantalla / 1.Introducción */
+  --bp-xs: 480px;
+  --bp-sm: 576px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+  --bp-2xl: 1440px;
 }
 
-/* ---------- 2. Reset ligero ---------- */
+/* ---------- 2. Reset ligero + Mobile First ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Mobile First: base SD 640px → HD 1920px, accesible */
+  font-size: clamp(15px, 0.9vw + 12px, 17px);
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   font-family: var(--f-body);
@@ -48,9 +66,16 @@ body {
   color: var(--tinta);
   background: var(--papel);
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* Imágenes flexibles base — guía Imágenes Responsive */
+img { object-fit: cover; }
 
 h1, h2, h3 { font-family: var(--f-display); line-height: 1.1; }
 
@@ -66,21 +91,32 @@ a:hover { color: var(--guacamaya); }
   border-radius: 4px;
 }
 
-/* ---------- 3. Utilidades de layout: container y grids ---------- */
+/* ---------- 3. Utilidades de layout: container y grids — Mobile First ---------- */
 .container {
+  width: 100%;
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 2rem);
 }
+/* Contenedor fluido por breakpoint — guía Breakpoints */
+@media (min-width: 576px)  { .container { max-width: var(--container-sm); } }
+@media (min-width: 768px)  { .container { max-width: var(--container-md); } }
+@media (min-width: 992px)  { .container { max-width: var(--container-lg); } }
+@media (min-width: 1200px) { .container { max-width: var(--container-xl); } }
 
-/* Sistema de grillas con CSS Grid */
+/* Sistema de grillas con CSS Grid — Mobile First (1 col base) */
 .grid { display: grid; gap: var(--gap); }
 
-.grid-2 { grid-template-columns: repeat(2, 1fr); align-items: center; }
+/* Mobile First: 1 columna base → 2 columnas en desktop, no al revés */
+.grid-2 { grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); align-items: center; } }
 
-.cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.cards-grid { grid-template-columns: 1fr; }
+@media (min-width: 576px)  { .cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 
-.news-grid { grid-template-columns: repeat(3, 1fr); }
+.news-grid { grid-template-columns: 1fr; }
+@media (min-width: 640px)  { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* Etiqueta pequeña sobre los títulos */
 .eyebrow {
