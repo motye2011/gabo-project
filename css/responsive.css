@@ -428,12 +428,25 @@ a:hover { color: var(--guacamaya); }
   font-family: var(--f-ui);
   font-weight: 700;
   font-size: var(--fs-small);
-  color: var(--papel);
-  background: var(--caribe);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--mariposa);
   align-self: flex-start;
   padding: 0.2rem 0.7rem;
-  border-radius: 999px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
 }
+.card-agent .card-img {
+  width: 72px; height: 72px;
+  object-fit: contain;
+  background: var(--noche);
+  border-radius: 50%;
+  padding: 6px;
+  border: 2px solid color-mix(in srgb, var(--mariposa) 60%, transparent);
+  margin-bottom: 0.4rem;
+}
+.card-agent { border-top: 3px solid var(--mariposa); }
 
 .card-link {
   margin-top: auto;
